@@ -38,7 +38,7 @@ export default function Home() {
           <a href="#business">Business</a>
           <a href="#daily-needs">Daily Needs</a>
         </nav>
-        <a className="header-cta" href="#verticals">Explore ABN <span aria-hidden="true">↗</span></a>
+        <a className="header-cta" href="/account">Sign in / Join <span aria-hidden="true">↗</span></a>
       </header>
 
       <main>
