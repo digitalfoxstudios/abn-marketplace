@@ -44,7 +44,7 @@ export default function DigitalShopPage(){
    {shop.description&&<p className="digital-shop-description">{shop.description}</p>}
    {products.length===0?<div className="digital-shop-empty">This shop is getting its products ready. Please check back soon.</div>:
     <div className="digital-shop-products">{products.map(p=><a className="digital-shop-product" href={"/products/"+encodeURIComponent(p.slug)} key={p.id}>
-     <div className="digital-shop-product-image">{p.image_url?<img src={p.image_url} alt={p.name}/>:<span>ABN</span>}</div>
+     <div className="digital-shop-product-image">{p.image_url?<img src={p.image_url} alt={p.name} loading="lazy" onError={e=>{e.currentTarget.parentElement?.setAttribute("data-image-error","true");e.currentTarget.style.display="none";}}/><span className="digital-shop-image-fallback">ABN</span>:<span>ABN</span>}</div>
      <strong>{p.name}</strong><b>{money(Number(p.price))}{p.unit?<small> / {p.unit}</small>:null}</b>
      {p.compare_at_price&&<del>{money(Number(p.compare_at_price))}</del>}
      <span>View product →</span>
