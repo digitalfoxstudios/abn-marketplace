@@ -164,3 +164,48 @@
 .now-hero>span{font-size:10px;letter-spacing:1.6px;color:#16804d;font-weight:800}.now-hero h1{font-size:clamp(36px,5vw,58px);line-height:1.08;letter-spacing:-2px;margin:15px 0}.now-hero h1 em{font-style:normal;color:#16804d}.now-hero p{font-size:14px;color:#61746a;max-width:540px;line-height:1.7}.now-status{display:inline-block;margin:14px 0;padding:12px 15px;background:#fff;border-left:3px solid #16804d;font-size:12px;color:#52675b}.now-hero>a{display:block;color:#16804d;font-weight:700;font-size:12px;margin-top:10px}
 .now-info{max-width:1216px;margin:15px auto;background:#fff;padding:28px}.now-info h2{font-size:22px}.now-info>div{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.now-info article{padding:20px;background:#f8faf8;border:1px solid #e8eee8}.now-info article b{font-size:14px}.now-info article p{font-size:12px;color:#758078;line-height:1.6}.now-footer{text-align:center;padding:25px;color:#7b8780;font-size:11px}
 @media(max-width:650px){.now-header{padding:12px 14px}.now-hero{margin:9px 7px 0;padding:38px 20px}.now-hero h1{font-size:38px}.now-info{margin:9px 7px;padding:19px}.now-info>div{grid-template-columns:1fr}.abn-switcher{order:4;width:100%;justify-content:space-between}}
+
+
+/* ABN Shopping digital seller storefronts */
+.store-shops-section{margin:0 0 25px;padding:0 0 22px;border-bottom:1px solid #e9edf0}
+.store-shops-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}
+.store-shops-heading h2{font-size:21px;margin:5px 0 0}.store-shops-heading>span{font-size:11px;color:#7a8791}
+.store-shops-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.store-shop-chip{display:flex;align-items:center;gap:11px;min-width:0;padding:12px;border:1px solid #e8edf1;border-radius:5px;background:#fff;color:#243746}
+.store-shop-chip>img,.store-shop-initial{width:42px;height:42px;border-radius:50%;object-fit:cover;flex:none}
+.store-shop-initial{display:grid;place-items:center;background:#e8f3fb;color:#0876d1;font-weight:800}
+.store-shop-chip>span:nth-child(2){min-width:0;display:flex;flex-direction:column;gap:4px;flex:1}
+.store-shop-chip strong{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.store-shop-chip small{font-size:10px;color:#7c8992;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.store-shop-chip>b{color:#0876d1}
+.digital-shop-page{min-height:100vh;background:#f1f3f6;color:#202d38;font-family:Arial,sans-serif}
+.digital-shop-header{min-height:66px;background:#0876d1;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:10px max(calc((100vw - 1240px)/2),20px);gap:18px;flex-wrap:wrap}
+.digital-shop-brand{font-size:19px;color:#fff;font-weight:800}.digital-shop-brand b{font-size:25px;margin-right:8px}
+.digital-shop-back{font-size:12px;color:#fff;font-weight:700}
+.digital-shop-hero{max-width:1216px;margin:15px auto 0;min-height:245px;padding:45px 6%;display:flex;align-items:center;background:linear-gradient(115deg,#e3f3ff,#f8fcff 60%,#d4eaff);background-size:cover;background-position:center;color:#fff}
+.digital-shop-identity{display:flex;align-items:center;gap:20px;max-width:760px}
+.digital-shop-identity>img,.digital-shop-identity>span{width:94px;height:94px;border-radius:12px;object-fit:cover;background:#fff;color:#0876d1;display:grid;place-items:center;font-size:38px;font-weight:900;flex:none}
+.digital-shop-identity small{font-size:10px;font-weight:800;letter-spacing:1.5px;color:inherit}
+.digital-shop-identity h1{font-size:clamp(30px,4vw,45px);margin:8px 0;line-height:1.1}
+.digital-shop-identity p{font-size:13px;line-height:1.6;margin:0;max-width:520px}
+.digital-shop-content{max-width:1216px;margin:15px auto;background:#fff;padding:25px 24px 45px}
+.digital-shop-heading{display:flex;justify-content:space-between;align-items:end;gap:12px;border-bottom:1px solid #edf0f2;padding-bottom:15px}
+.digital-shop-heading small{font-size:10px;color:#0876d1;font-weight:800;letter-spacing:1.4px}
+.digital-shop-heading h2{font-size:22px;margin:6px 0 0}
+.digital-shop-heading>span{font-size:11px;color:#7c8992}
+.digital-shop-description{font-size:13px;line-height:1.7;color:#62717e;margin:17px 0}
+.digital-shop-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.digital-shop-product{min-width:0;padding:17px 13px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;border-right:1px solid #edf0f2;border-bottom:1px solid #edf0f2;color:#263746}
+.digital-shop-product:nth-child(4n){border-right:0}
+.digital-shop-product-image{height:165px;width:100%;display:grid;place-items:center}
+.digital-shop-product-image img{width:100%;height:100%;object-fit:contain}
+.digital-shop-product-image>span{width:95px;height:95px;border-radius:50%;display:grid;place-items:center;background:#e8f3fb;color:#0876d1;font-size:24px;font-weight:900}
+.digital-shop-product strong{font-size:12px;line-height:1.4;min-height:32px}
+.digital-shop-product>b{font-size:15px}.digital-shop-product>b small{font-size:10px;color:#7b8790;font-weight:400}
+.digital-shop-product del{font-size:10px;color:#8b969e}
+.digital-shop-product>span:last-child{font-size:10px;color:#0876d1;font-weight:700}
+.digital-shop-empty,.digital-shop-loading{min-height:55vh;display:grid;place-content:center;text-align:center;gap:10px;color:#63717c}
+.digital-shop-footer{text-align:center;padding:25px;color:#77848d;font-size:11px}
+.product-seller{font-size:12px;color:#75818a;margin:8px 0}.product-seller a{color:#0876d1;font-weight:700}
+@media(max-width:850px){.digital-shop-products{grid-template-columns:repeat(3,minmax(0,1fr))}.digital-shop-product:nth-child(4n){border-right:1px solid #edf0f2}.digital-shop-product:nth-child(3n){border-right:0}}
+@media(max-width:600px){.store-shops-heading{align-items:flex-start;flex-direction:column}.store-shops-row{grid-template-columns:1fr}.digital-shop-header{padding:12px 14px}.digital-shop-hero{margin:9px 7px 0;min-height:200px;padding:28px 18px}.digital-shop-identity{gap:13px}.digital-shop-identity>img,.digital-shop-identity>span{width:66px;height:66px;font-size:28px}.digital-shop-identity h1{font-size:27px}.digital-shop-identity p{font-size:11px}.digital-shop-content{margin:9px 7px;padding:18px 10px 30px}.digital-shop-products{grid-template-columns:repeat(2,minmax(0,1fr))}.digital-shop-product{padding:13px 8px}.digital-shop-product:nth-child(3n){border-right:1px solid #edf0f2}.digital-shop-product:nth-child(2n){border-right:0}.digital-shop-product-image{height:125px}}
