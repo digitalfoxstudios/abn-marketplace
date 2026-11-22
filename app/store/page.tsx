@@ -32,14 +32,15 @@ export default function StorePage() {
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
     if (!supabase) { router.replace("/account"); return; }
+    const client = supabase;
     let active = true;
     async function load() {
-      const { data: auth } = await supabase.auth.getUser();
+      const { data: auth } = await client.auth.getUser();
       if (!auth.user) { router.replace("/account"); return; }
       if (active) setEmail(auth.user.email ?? "");
       const [categoryResult, productResult] = await Promise.all([
-        supabase.from("categories").select("id,name,slug").eq("vertical", "store").eq("is_active", true).order("sort_order"),
-        supabase.from("products").select("id,name,slug,description,price,compare_at_price,image_url,unit,category_id,sku").eq("vertical", "store").eq("is_active", true).order("created_at", { ascending: false }),
+        client.from("categories").select("id,name,slug").eq("vertical", "store").eq("is_active", true).order("sort_order"),
+        client.from("products").select("id,name,slug,description,price,compare_at_price,image_url,unit,category_id,sku").eq("vertical", "store").eq("is_active", true).order("created_at", { ascending: false }),
       ]);
       if (!active) return;
       if (categoryResult.error) setError(categoryResult.error.message);
@@ -49,7 +50,7 @@ export default function StorePage() {
         const rows = (productResult.data ?? []) as Product[];
         setProducts(rows);
         if (rows.length) {
-          const inventoryResult = await supabase.from("inventory").select("product_id,quantity,reserved_quantity").in("product_id", rows.map(p => p.id));
+          const inventoryResult = await client.from("inventory").select("product_id,quantity,reserved_quantity").in("product_id", rows.map(p => p.id));
           if (!inventoryResult.error && active) {
             const totals: Record<string, number> = {};
             for (const item of inventoryResult.data ?? []) totals[item.product_id] = (totals[item.product_id] ?? 0) + Math.max(0, item.quantity - item.reserved_quantity);
