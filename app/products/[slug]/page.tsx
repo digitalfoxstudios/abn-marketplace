@@ -14,7 +14,8 @@ export default function ProductDetailPage(){
  useEffect(()=>{let alive=true;async function load(){const db=createSupabaseBrowserClient();if(!db){router.replace("/account");return;}
  const {data:p,error:e}=await db.from("products").select("id,name,slug,description,price,compare_at_price,image_url,unit,sku,shop_id").eq("slug",decodeURIComponent(params.slug)).eq("vertical","store").eq("is_active",true).maybeSingle();
  if(e)throw e;if(!p){if(alive){setError("This product is unavailable.");setLoading(false);}return;}
- const shopResult=p.shop_id?await db.from("digital_shops").select("store_name,slug").eq("id",p.shop_id).eq("status","active").maybeSingle():{data:null,error:null};\n const [im,va]=await Promise.all([db.from("product_images").select("id,image_url,alt_text,sort_order").eq("product_id",p.id).order("sort_order"),db.from("product_variants").select("id,name,sku,price,compare_at_price,image_url,attributes,stock_quantity").eq("product_id",p.id).eq("is_active",true).order("created_at")]);
+ const shopResult=p.shop_id?await db.from("digital_shops").select("store_name,slug").eq("id",p.shop_id).eq("status","active").maybeSingle():{data:null,error:null};
+ const [im,va]=await Promise.all([db.from("product_images").select("id,image_url,alt_text,sort_order").eq("product_id",p.id).order("sort_order"),db.from("product_variants").select("id,name,sku,price,compare_at_price,image_url,attributes,stock_quantity").eq("product_id",p.id).eq("is_active",true).order("created_at")]);
  if(!alive)return;setProduct(p as Product);setShop(shopResult.data);setImages((im.data??[]) as Image[]);setVariants((va.data??[]) as Variant[]);if(va.data?.length)setSelected(va.data[0].id);setLoading(false);
  }load().catch(e=>{if(alive){setError(e instanceof Error?e.message:"Unable to load product.");setLoading(false);}});return()=>{alive=false}},[params.slug,router]);
  const variant=variants.find(v=>v.id===selected)??null;
@@ -24,7 +25,7 @@ export default function ProductDetailPage(){
  if(!product)return <main className="product-loading"><p>{error||"Product not found."}</p><a href="/store">Back to ABN Shopping</a></main>;
  const price=Number(variant?.price??product.price);
  return <main className="product-page"><header className="product-header"><a href="/store" className="product-brand"><b>ABN</b> Shopping</a><VerticalSwitcher/><a href="/store" className="product-back">← All products</a></header>
- <div className="product-breadcrumb"><a href="/store">ABN Shopping</a> / <a href="/store">ABN Shopping</a> / {product.name}</div>
+ <div className="product-breadcrumb"><a href="/store">Home</a> / ABN Shopping / {product.name}</div>
  <section className="product-detail-layout"><div className="product-gallery"><div className="product-main-image">{gallery[activeImage]?.image_url?<img src={gallery[activeImage].image_url} alt={gallery[activeImage].alt_text||product.name}/>:<span>ABN</span>}</div>
  {gallery.length>1&&<div className="product-thumbnails">{gallery.map((im,i)=><button key={im.id} className={activeImage===i?"selected":""} onClick={()=>setActiveImage(i)}><img src={im.image_url} alt={im.alt_text||("Product view "+(i+1))}/></button>)}</div>}</div>
  <div className="product-info"><span className="product-kicker">ABN SHOPPING</span><h1>{product.name}</h1>{shop&&<p className="product-seller">Sold by <a href={"/shops/"+encodeURIComponent(shop.slug)}>{shop.store_name}</a></p>}<p className="product-sku">Product code: {product.sku||"—"}</p><div className="product-detail-price">{money(price)}{product.unit&&<small> / {product.unit}</small>}{(variant?.compare_at_price??product.compare_at_price)&&<del>{money(Number(variant?.compare_at_price??product.compare_at_price))}</del>}</div>
