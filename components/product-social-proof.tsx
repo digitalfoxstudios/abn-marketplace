@@ -65,9 +65,9 @@ export default function ProductSocialProof({productId,categoryId}:{productId:str
     const {data}=db.storage.from("product-review-photos").getPublicUrl(path);
     urls.push(data.publicUrl);
    }
-   const {error}=await db.from("product_reviews").insert({product_id:productId,customer_id:auth.user.id,order_item_id:orderItem,rating,title:title.trim()||null,review_text:body.trim(),photo_urls:urls,status:"pending",verified_purchase:true});
+   const {error}=await db.from("product_reviews").insert({product_id:productId,customer_id:auth.user.id,order_item_id:orderItem,rating,title:title.trim()||null,review_text:body.trim(),photo_urls:urls,status:"published",verified_purchase:true});
    if(error)throw error;
-   setMessage("Thank you! Your verified-purchase review has been submitted for moderation.");
+   setMessage("Thank you! Your verified-purchase review is now published. Thank you for sharing your experience!");
    setTitle("");setBody("");setFiles([]);setOrderItem("");
   }catch(e){setMessage(e instanceof Error?e.message:"Could not submit your review.");}
   finally{setBusy(false);}
