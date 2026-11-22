@@ -21,7 +21,8 @@ const money = (value: number) => new Intl.NumberFormat("en-IN", {
 export default function StorePage() {
   const router = useRouter();
   const [categories, setCategories] = useState<Category[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);\n  const [shops, setShops] = useState<Shop[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [shops, setShops] = useState<Shop[]>([]);
   const [stock, setStock] = useState<Record<string, number>>({});
   const [cart, setCart] = useState<CartLine[]>([]);
   const [search, setSearch] = useState("");
@@ -42,11 +43,13 @@ export default function StorePage() {
       if (active) setEmail(auth.user.email ?? "");
       const [categoryResult, productResult, shopResult] = await Promise.all([
         client.from("categories").select("id,name,slug").eq("vertical", "store").eq("is_active", true).order("sort_order"),
-        client.from("products").select("id,name,slug,description,price,compare_at_price,image_url,unit,category_id,sku,shop_id").eq("vertical", "store").eq("is_active", true).order("created_at", { ascending: false }),\n        client.from("digital_shops").select("id,store_name,slug,tagline,logo_url").eq("status","active").order("store_name"),
+        client.from("products").select("id,name,slug,description,price,compare_at_price,image_url,unit,category_id,sku,shop_id").eq("vertical", "store").eq("is_active", true).order("created_at", { ascending: false }),
+        client.from("digital_shops").select("id,store_name,slug,tagline,logo_url").eq("status","active").order("store_name"),
       ]);
       if (!active) return;
       if (categoryResult.error) setError(categoryResult.error.message);
       else setCategories(categoryResult.data ?? []);
+      if (!shopResult.error) setShops((shopResult.data ?? []) as Shop[]);
       if (productResult.error) setError(productResult.error.message);
       else {
         const rows = (productResult.data ?? []) as Product[];
@@ -108,7 +111,8 @@ export default function StorePage() {
         <div className="store-hero-art" aria-hidden="true"><div className="store-art-circle">ABN</div><span>SHOP</span><b>01</b></div>
       </section>
 
-      <section className="store-content">\n        {shops.length>0&&<section className="store-shops-section"><div className="store-shops-heading"><div><span className="store-kicker">SELLER STOREFRONTS</span><h2>Explore digital shops</h2></div><span>Discover independent ABN sellers</span></div><div className="store-shops-row">{shops.map(shop=><a className="store-shop-chip" href={"/shops/"+encodeURIComponent(shop.slug)} key={shop.id}>{shop.logo_url?<img src={shop.logo_url} alt=""/>:<span className="store-shop-initial">{shop.store_name.slice(0,1).toUpperCase()}</span>}<span><strong>{shop.store_name}</strong><small>{shop.tagline||"Visit digital shop"}</small></span><b>→</b></a>)}</div></section>}
+      <section className="store-content">
+        {shops.length>0&&<section className="store-shops-section"><div className="store-shops-heading"><div><span className="store-kicker">SELLER STOREFRONTS</span><h2>Explore digital shops</h2></div><span>Discover independent ABN sellers</span></div><div className="store-shops-row">{shops.map(shop=><a className="store-shop-chip" href={"/shops/"+encodeURIComponent(shop.slug)} key={shop.id}>{shop.logo_url?<img src={shop.logo_url} alt=""/>:<span className="store-shop-initial">{shop.store_name.slice(0,1).toUpperCase()}</span>}<span><strong>{shop.store_name}</strong><small>{shop.tagline||"Visit digital shop"}</small></span><b>→</b></a>)}</div></section>}
         <div className="store-toolbar"><div><span className="store-kicker">THE CATALOGUE</span><h2>Explore products</h2></div><button className="store-cart-button" onClick={() => setCartOpen(true)}>Cart <b>{cartCount}</b></button></div>
         <label className="store-search"><span aria-hidden="true">⌕</span><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search products..." aria-label="Search products"/></label>
         <div className="store-categories"><button className={activeCategory === "all" ? "selected" : ""} onClick={() => setActiveCategory("all")}>All products</button>{categories.map(c => <button key={c.id} className={activeCategory === c.id ? "selected" : ""} onClick={() => setActiveCategory(c.id)}>{c.name}</button>)}</div>
