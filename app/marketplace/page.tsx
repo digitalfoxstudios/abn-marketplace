@@ -19,10 +19,10 @@ export default function MarketplacePage(){
  const [signingOut,setSigningOut]=useState(false);
 
  useEffect(()=>{
-  const supabase=createSupabaseBrowserClient();
-  if(!supabase){router.replace("/account");return;}
   let active=true;
   async function load(){
+   const supabase=createSupabaseBrowserClient();
+   if(!supabase){router.replace("/account");return;}
    const {data:auth}=await supabase.auth.getUser();
    if(!auth.user){router.replace("/account");return;}
    if(active)setEmail(auth.user.email??"");
