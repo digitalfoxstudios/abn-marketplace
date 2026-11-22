@@ -57,3 +57,23 @@
 .store-overlay{position:fixed;inset:0;background:#10251db0;z-index:50;display:flex;justify-content:flex-end}.store-cart-panel{background:#fff;width:min(440px,100%);height:100%;padding:25px;display:flex;flex-direction:column;box-shadow:-15px 0 50px #0002}.store-cart-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e8eee9;padding-bottom:18px}.store-cart-head h2{font:800 25px Manrope;margin:7px 0 0}.store-cart-head>button{border:0;background:#f0f5f1;border-radius:50%;width:36px;height:36px;font-size:25px;cursor:pointer}.store-cart-empty{margin:auto;color:#718078;text-align:center;font-size:14px}.store-cart-lines{overflow:auto;flex:1;padding:15px 0}.store-cart-line{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid #edf1ee}.store-cart-line strong,.store-cart-line small{display:block}.store-cart-line strong{font-size:13px}.store-cart-line small{font-size:11px;color:#718078;margin-top:5px}.store-quantity{display:flex;align-items:center;gap:10px}.store-quantity button{width:28px;height:28px;border:1px solid #dbe5de;border-radius:7px;background:white;cursor:pointer}.store-cart-total{display:flex;justify-content:space-between;border-top:1px solid #e8eee9;padding:17px 0;font-size:14px}.store-checkout-note{background:#f8f5e9;color:#78602d;border-radius:9px;padding:12px;font-size:11px;line-height:1.6}.store-checkout{margin-top:13px;border:0;border-radius:9px;padding:14px;background:#e8eeea;color:#7b8981;font-weight:800}.store-footer{border-top:1px solid #e5ede7;padding:22px max(5vw,22px);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:#738078;font-size:11px}.store-footer a{color:#087b59;font-weight:700}
 @media(max-width:900px){.store-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.store-hero{padding-top:48px;padding-bottom:48px}}
 @media(max-width:560px){.store-header{height:auto;min-height:68px;padding:12px 16px}.store-header-right>span{display:none}.store-hero{padding:42px 22px}.store-hero-art{width:110px;height:130px}.store-art-circle{width:95px;height:95px;font-size:25px}.store-hero-art>span{font-size:8px;padding:7px}.store-content{padding:38px 16px 60px}.store-toolbar h2{font-size:25px}.store-product-grid{gap:10px}.store-product-image{height:125px}.store-product-body{padding:12px}.store-product h3{font-size:13px}.store-product p{font-size:10px}.store-price{font-size:15px}.store-footer{padding:18px 16px}}
+
+
+/* ABN Store visual balance: prioritize the shopping experience over decoration */
+.store-hero{padding:48px max(8vw,24px);gap:24px}
+.store-hero>div:first-child{flex:1;max-width:760px}
+.store-hero h1{font-size:clamp(40px,5vw,62px);line-height:1.04}
+.store-hero-art{width:112px;height:112px;opacity:.9}
+.store-art-circle{width:82px;height:82px;font-size:23px;box-shadow:0 10px 24px #087b5920}
+.store-hero-art>span{right:-3px;top:0;padding:7px 10px;font-size:8px}
+.store-hero-art>b{width:30px;height:30px;font-size:10px;bottom:0}
+.store-content{max-width:1320px;padding-top:42px}
+.store-product-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.store-product-image{height:210px}
+.store-product-body{padding:19px}
+.store-product h3{font-size:17px}
+.store-product p{font-size:13px;min-height:42px}
+.store-price{font-size:19px}
+.store-add{font-size:13px;padding:13px}
+@media(max-width:900px){.store-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.store-product-image{height:175px}}
+@media(max-width:560px){.store-hero{padding:38px 20px}.store-hero h1{font-size:38px;letter-spacing:-1.8px}.store-hero-art{width:78px;height:80px}.store-art-circle{width:62px;height:62px;font-size:18px}.store-hero-art>span{font-size:7px;padding:5px 7px}.store-hero-art>b{width:24px;height:24px;font-size:9px}.store-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.store-product-image{height:125px}.store-product-body{padding:12px}.store-product h3{font-size:13px}.store-product p{font-size:10px;min-height:34px}.store-price{font-size:15px}.store-add{font-size:11px;padding:10px}}
