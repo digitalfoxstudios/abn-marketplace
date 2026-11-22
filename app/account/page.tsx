@@ -19,7 +19,7 @@ export default function AccountPage() {
     if (!supabase) return;
     let active = true;
     supabase.auth.getSession().then(({ data }) => {
-      if (active && data.session) router.replace("/marketplace");
+      if (active && data.session) router.replace("/store");
     });
     return () => { active = false; };
   }, [router]);
@@ -41,7 +41,7 @@ export default function AccountPage() {
         });
         if (authError) throw authError;
         if (data.session) {
-          router.replace("/marketplace");
+          router.replace("/store");
           router.refresh();
           return;
         }
@@ -50,7 +50,7 @@ export default function AccountPage() {
         const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
         if (authError) throw authError;
         if (!data.session) throw new Error("Sign-in completed but no active session was returned. Please try again.");
-        router.replace("/marketplace");
+        router.replace("/store");
         router.refresh();
         return;
       }
@@ -64,14 +64,14 @@ export default function AccountPage() {
   return (
     <main className="account-page">
       <section className="account-panel">
-        <a href="/" className="account-back">← Back to ABN Marketplace</a>
+        <a href="/" className="account-back">← Back to ABN Shopping</a>
         <div className="account-brand"><span className="brand-mark">ABN</span></div>
         <span className="eyebrow">YOUR ABN ACCOUNT</span>
         <h1>{mode === "signup" ? "Join the network." : "Welcome back."}</h1>
         <p className="account-intro">
           {mode === "signup"
-            ? "Create one account to connect with ABN Store, ABN Business and ABN Daily Needs."
-            : "Sign in to continue to ABN Marketplace."}
+            ? "Create one account for ABN Shopping and ABN Now."
+            : "Sign in to continue to ABN Shopping."}
         </p>
         <div className="account-tabs" role="group" aria-label="Account action">
           <button type="button" className={mode === "signup" ? "active" : ""} onClick={() => { setMode("signup"); setMessage(""); setError(""); }}>Create account</button>
