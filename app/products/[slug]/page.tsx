@@ -3,7 +3,8 @@ import {useEffect,useMemo,useState} from "react";
 import {useParams,useRouter} from "next/navigation";
 import {createSupabaseBrowserClient} from "@/lib/supabase/client";
 import VerticalSwitcher from "@/components/vertical-switcher";
-type Product={id:string;name:string;slug:string;description:string|null;price:number;compare_at_price:number|null;image_url:string|null;unit:string|null;sku:string|null;shop_id:string|null};
+import ProductSocialProof from "@/components/product-social-proof";
+type Product={id:string;name:string;slug:string;description:string|null;price:number;compare_at_price:number|null;image_url:string|null;unit:string|null;sku:string|null;shop_id:string|null;category_id:string|null};
 type Image={id:string;image_url:string;alt_text:string|null;sort_order:number};
 type Variant={id:string;name:string;sku:string|null;price:number|null;compare_at_price:number|null;image_url:string|null;attributes:Record<string,string>;stock_quantity:number};
 const money=(n:number)=>new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:2}).format(n);
@@ -12,7 +13,7 @@ export default function ProductDetailPage(){
  const [product,setProduct]=useState<Product|null>(null);const [shop,setShop]=useState<{store_name:string;slug:string}|null>(null);const [images,setImages]=useState<Image[]>([]);const [variants,setVariants]=useState<Variant[]>([]);
  const [selected,setSelected]=useState("");const [activeImage,setActiveImage]=useState(0);const [loading,setLoading]=useState(true);const [error,setError]=useState("");
  useEffect(()=>{let alive=true;async function load(){const db=createSupabaseBrowserClient();if(!db){router.replace("/account");return;}
- const {data:p,error:e}=await db.from("products").select("id,name,slug,description,price,compare_at_price,image_url,unit,sku,shop_id").eq("slug",decodeURIComponent(params.slug)).eq("vertical","store").eq("is_active",true).maybeSingle();
+ const {data:p,error:e}=await db.from("products").select("id,name,slug,description,price,compare_at_price,image_url,unit,sku,shop_id,category_id").eq("slug",decodeURIComponent(params.slug)).eq("vertical","store").eq("is_active",true).maybeSingle();
  if(e)throw e;if(!p){if(alive){setError("This product is unavailable.");setLoading(false);}return;}
  const shopResult=p.shop_id?await db.from("digital_shops").select("store_name,slug").eq("id",p.shop_id).eq("status","active").maybeSingle():{data:null,error:null};
  const [im,va]=await Promise.all([db.from("product_images").select("id,image_url,alt_text,sort_order").eq("product_id",p.id).order("sort_order"),db.from("product_variants").select("id,name,sku,price,compare_at_price,image_url,attributes,stock_quantity").eq("product_id",p.id).eq("is_active",true).order("created_at")]);
@@ -34,5 +35,5 @@ export default function ProductDetailPage(){
  {variant&&<p className="product-availability">{variant.stock_quantity>0?variant.stock_quantity+" in stock for this variant":"This variant is currently out of stock"}</p>}
  <div className="product-detail-note">Cash on Delivery is planned for launch. Ordering will be enabled after checkout and stock validation are complete.</div><a className="product-back-button" href="/store">Continue shopping</a></div></section>
  <section className="product-description"><h2>Product details & description</h2><p>{product.description||"Detailed product information will be provided by ABN Shopping."}</p><dl><div><dt>Product</dt><dd>{product.name}</dd></div><div><dt>SKU</dt><dd>{product.sku||"Not specified"}</dd></div><div><dt>Unit</dt><dd>{product.unit||"Not specified"}</dd></div></dl></section>
- <footer className="product-footer">ABN Shopping · An initiative of Bahujan Samaj Vikas Sansthan</footer></main>
+ <ProductSocialProof productId={product.id} categoryId={product.category_id}/><footer className="product-footer">ABN Shopping · An initiative of Bahujan Samaj Vikas Sansthan</footer></main>
 }
