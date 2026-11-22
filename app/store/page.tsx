@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import VerticalSwitcher from "@/components/vertical-switcher";
 
 type Category = { id: string; name: string; slug: string };
 type Product = {
@@ -97,7 +98,7 @@ export default function StorePage() {
   return (
     <main className="store-shell">
       <header className="store-header">
-        <a className="store-brand" href="/marketplace"><span className="store-brand-mark">ABN</span><span>Marketplace<small>ABN Store</small></span></a>
+        <a className="store-brand" href="/marketplace"><span className="store-brand-mark">ABN</span><span>Shopping<small>ABN Shopping</small></span></a><VerticalSwitcher/>
         <div className="store-header-right"><span>{email}</span><button className="store-outline" onClick={signOut}>Sign out</button></div>
       </header>
 
@@ -117,8 +118,8 @@ export default function StorePage() {
           <div className="store-product-grid">{filtered.map(product => {
             const available = stock[product.id] ?? 0;
             return <article className="store-product" key={product.id}>
-              <div className="store-product-image">{product.image_url ? <img src={product.image_url} alt={product.name}/> : <span>ABN</span>}</div>
-              <div className="store-product-body"><h3>{product.name}</h3><p>{product.description || "Available from ABN Store."}</p><div className="store-price">{money(Number(product.price))}{product.unit ? <small> / {product.unit}</small> : null}</div><div className="store-stock">{available > 0 ? `${available} available` : "Currently out of stock"}</div><button className="store-add" disabled={available < 1} onClick={() => addToCart(product)}>{available > 0 ? "Add to cart +" : "Out of stock"}</button></div>
+              <a className="store-product-image" href={"/products/"+encodeURIComponent(product.slug)} aria-label={"View "+product.name}>{product.image_url ? <img src={product.image_url} alt={product.name}/> : <span>ABN</span>}</a>
+              <div className="store-product-body"><h3><a href={"/products/"+encodeURIComponent(product.slug)}>{product.name}</a></h3><p>{product.description || "Available from ABN Store."}</p><div className="store-price">{money(Number(product.price))}{product.unit ? <small> / {product.unit}</small> : null}</div><div className="store-stock">{available > 0 ? `${available} available` : "Currently out of stock"}</div><a className="store-product-details-link" href={"/products/"+encodeURIComponent(product.slug)}>View details & variants</a><button className="store-add" disabled={available < 1} onClick={() => addToCart(product)}>{available > 0 ? "Add to cart +" : "Out of stock"}</button></div>
             </article>;
           })}</div>
         )}
