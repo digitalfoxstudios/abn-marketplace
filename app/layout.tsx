@@ -1,25 +1,20 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "../globals.css"
-
-const inter = Inter({ subsets: ["latin"] })
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ABN Marketplace",
   description:
-    "India's modern marketplace — ABN Store, ABN Business, and ABN Daily Needs. Cash on Delivery at launch.",
-}
+    "ABN Store, ABN Business and ABN Daily Needs — one connected marketplace. Cash on Delivery planned at launch.",
+};
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    html lang="en" className={inter.className}
-    body className="min-h-screen bg-white text-gray-900"
-      {children}
-    /body
-    /html
-  )
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
 }
